@@ -1,0 +1,26 @@
+camel:
+  springboot:
+    # https://camel.apache.org/camel-spring-boot/4.0.x/#_making_sure_camel_context_is_running_in_standalone_spring_boot
+    # # to keep the JVM running
+    main-run-controller: true
+    # to automatic shutdown the JVM after a period of time (in seconds)
+    # duration-max-seconds: 180
+    # https://camel.apache.org/manual/route-controller.html#_configuring_supervising_route_controller
+    routeControllerSuperviseEnabled: true
+    routeControllerBackoffDelay: 5000
+    routeControllerBackoffMaxAttempts: 10
+    routeControllerInitialDelay: 1000
+    routeControllerThreadPoolSize: 2
+  # https://camel.apache.org/components/4.0.x/eips/message-history.html#_configuring_route_stack_trace_from_error_handler
+  on-exception-log-exhausted: true
+  on-exception-log-exhausted-message-body: true
+  on-exception-log-exhausted-message-history: false
+  component:
+    aws2-s3:
+      overrideEndpoint: true
+      uriEndpointOverride: http://s3.localhost.localstack.cloud:4566
+      accessKey: dev
+      secretKey: dev
+      region: us-east-1
+
+integration:

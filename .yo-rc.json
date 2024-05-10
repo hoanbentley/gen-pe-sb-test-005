@@ -1,0 +1,74 @@
+{
+  "generator-pe-springboot": {
+    "appName": "gen-pe-sb-test-005",
+    "appKey": "PE",
+    "packageName": "com.sia.gentest",
+    "packageFolder": "com/sia/gentest",
+    "serverPort": 8088,
+    "databaseTypes": {
+      "mysql": [
+        "DEFAULT"
+      ]
+    },
+    "messagingTypes": [
+      "kafka",
+      "ibm-mq"
+    ],
+    "fileBasedIntTypes": [
+      "s3",
+      "sftp"
+    ],
+    "databaseAccess": "jpa",
+    "embeddedDb": "h2disk",
+    "updateMvnSettings": false,
+    "useJenkins": true,
+    "useSonarQube": true,
+    "deployment": {
+      "deploymentTarget": "aws-rosa",
+      "ocpWebConsoleIndiv": "",
+      "ocpWebConsoleGroup": "",
+      "deploymentType": "cronjob"
+    },
+    "entities": [
+      {
+        "databaseType": "mysql",
+        "dataStoreName": "DEFAULT",
+        "entityName": "Passenger",
+        "entityVarName": "passenger",
+        "urlPath": "/api/passengers",
+        "useUid": false,
+        "tableName": "passengers",
+        "variables": [
+          {
+            "varName": "FirstName",
+            "varNameInCamelCase": "firstName",
+            "dataType": "String",
+            "required": true
+          },
+          {
+            "varName": "Age",
+            "varNameInCamelCase": "age",
+            "dataType": "int",
+            "required": true
+          },
+          {
+            "varName": "Gender",
+            "varNameInCamelCase": "gender",
+            "dataType": "boolean",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "camel": {
+      "keepAlive": true,
+      "camelController": true,
+      "blueprints": []
+    },
+    "JAVA_VERSION": "17",
+    "DEFAULT_APP_VERSION": "0.0.1-SNAPSHOT",
+    "PE_SPRINGBOOT_GENERATOR_VERSION": "1.0.0-dev",
+    "PE_SPRINGBOOT_VERSION": "1.0.0-SNAPSHOT",
+    "TEST_CONTAINERS": false
+  }
+}

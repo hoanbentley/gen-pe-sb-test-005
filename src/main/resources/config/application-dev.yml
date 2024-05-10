@@ -1,0 +1,64 @@
+# ===================================================================
+# Use this configuration for "dev" (i.e. local development) profile.
+#
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+logging:
+  level:
+    ROOT: INFO
+    org.hibernate.SQL: DEBUG
+    com.sia.gentest: DEBUG
+    # software.amazon.awssdk: DEBUG
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  config:
+    # Load corresponding yml, e.g. application-uat.yml should load camel-uat.yml
+    import: camel-dev.yml # CAMEL-IMPORT-NEEDLE, do not remove
+  h2:
+    console:
+      enabled: true
+  jpa:
+    # Refer to https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.data-initialization.using-jpa
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    # openInView: false
+    properties:
+      hibernate.hbm2ddl.schema-generation.script.append: false
+      jakarta.persistence.schema-generation.create-source: metadata
+      jakarta.persistence.schema-generation.scripts.action: create
+      jakarta.persistence.schema-generation.scripts.create-target: target/gen-pe-sb-test-005.sql
+      jakarta.persistence.schema-generation.database.action: drop-and-create
+  datasource:
+    # http://www.h2database.com/html/features.html#compatibility
+    url: jdbc:h2:file:./target/h2db/db/gen-pe-sb-test-005;DB_CLOSE_DELAY=-1;MODE=MySql;DATABASE_TO_LOWER=TRUE
+    username: dbuser
+    password: dbpassword
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    disable-swagger-default-url: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # See https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints
+        include: info,health # pe-springboot-camel-needle-management-endpoints
+
+
+# pe-springboot-camel-needle, do not remove/modify [start]
+# pe-springboot-camel-needle, do not remove/modify [end]
