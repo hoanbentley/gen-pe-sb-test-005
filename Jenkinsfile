@@ -3,7 +3,7 @@
 // Please refer to the following link on how to configure Jenkins file
 // https://siaconfluence.sq.com.sg:8190/pages/viewpage.action?pageId=118622656
 
-appData=[
+/*appData=[
   jdkVersion: "17",
   ocpDeploy: true,
 
@@ -24,7 +24,7 @@ if (env.BRANCH_NAME == "master") {
 } else {
     dev_ocpMaven(appData) // maven build and ocp deploy
 }
-
+*/
 pipeline {
     agent any
     stages {
