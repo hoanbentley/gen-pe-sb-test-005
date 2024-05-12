@@ -3,10 +3,16 @@ package com.sia.gentest.domain.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.sia.gentest.util.jackson.JsonViews;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 public class PassengerDTO {
 

@@ -9,30 +9,35 @@ import jakarta.persistence.Table;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.NoArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.Accessors;
+
+
+@Data
+@AllArgsConstructor
+@Builder
+@Accessors(chain = true)
+@NoArgsConstructor
 
 @Entity
 @Table(name = "passengers")
-@Data
-@Accessors(chain = true)
-@NoArgsConstructor
 public class Passenger {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
 
-    @Column(nullable=false)
-    @NotNull(message="firstName cannot be empty")
+    @Column(nullable = false)
+    @NotNull(message = "firstName cannot be empty")
     private String firstName;
-    @Column(nullable=false)
-    @NotNull(message="age cannot be empty")
+
+    @Column(nullable = false)
+    @NotNull(message = "age cannot be empty")
     private int age;
-    @Column(nullable=true)
+
+    @Column(nullable = true)
     private boolean gender;
 
     @Override

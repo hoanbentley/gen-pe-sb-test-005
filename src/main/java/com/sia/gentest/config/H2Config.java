@@ -13,7 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@Configuration
+//@Configuration
 public class H2Config {
 
     private final Logger logger = LoggerFactory.getLogger(H2Config.class);
