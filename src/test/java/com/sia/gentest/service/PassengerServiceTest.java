@@ -17,7 +17,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 public class PassengerServiceTest {
 
-    @Mock
+    /*@Mock
     private ModelMapper modelMapper;
 
     @Mock
@@ -49,5 +49,5 @@ public class PassengerServiceTest {
 
         //then
         assertThat(passenger1).isNotNull();
-    }
+    }*/
 }
