@@ -6,24 +6,40 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.sia.gentest.IntegrationTest;
+import com.sia.gentest.common.AbstractContainerBaseTest;
 import com.sia.gentest.domain.dto.PassengerDTO;
 import com.sia.gentest.domain.entity.Passenger;
 import com.sia.gentest.repository.PassengerRepository;
 
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 @IntegrationTest
 @Transactional
 @AutoConfigureMockMvc
 @Slf4j
-public class PassengerControllerIT {
+//@Testcontainers
+public class PassengerControllerIT extends AbstractContainerBaseTest {
+
+    /*static final MySQLContainer MY_SQL_CONTAINER;
+
+    static {
+        MY_SQL_CONTAINER = new MySQLContainer("mysql:8.2.0");
+        MY_SQL_CONTAINER.start();
+    }*/
 
     private static final String ENTITY_API_URL = "/api/passengers";
 
@@ -41,6 +57,15 @@ public class PassengerControllerIT {
 
     @Autowired
     private MockMvc restPassengerMockMvc;
+
+    /*@DynamicPropertySource
+    static void configureTestProperties(DynamicPropertyRegistry registry){
+        registry.add("spring.datasource.url",() -> MY_SQL_CONTAINER.getJdbcUrl());
+        registry.add("spring.datasource.username",() -> MY_SQL_CONTAINER.getUsername());
+        registry.add("spring.datasource.password",() -> MY_SQL_CONTAINER.getPassword());
+        registry.add("spring.jpa.hibernate.ddl-auto",() -> "create");
+
+    }*/
 
     public static Passenger getMockPassenger() {
         return new Passenger()
@@ -170,9 +195,9 @@ public class PassengerControllerIT {
 
         // Delete the Passenger
         restPassengerMockMvc
-            .perform(
-                delete(ENTITY_API_URL + "/{id}", passenger.getId()).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNoContent());
+                .perform(
+                        delete(ENTITY_API_URL + "/{id}", passenger.getId()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<Passenger> passengerList = passengerRepository.findAll();
