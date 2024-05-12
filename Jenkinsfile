@@ -24,3 +24,33 @@ if (env.BRANCH_NAME == "master") {
 } else {
     dev_ocpMaven(appData) // maven build and ocp deploy
 }
+
+pipeline {
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo 'Building'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Test'
+            }
+        }
+
+        stage('Push') {
+            steps {
+                echo 'Pushing'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying'
+            }
+        }
+    }
+}
