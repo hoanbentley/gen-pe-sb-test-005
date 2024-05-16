@@ -27,7 +27,10 @@ if (env.BRANCH_NAME == "master") {
 */
 pipeline {
     agent {
-        label 'agent1'
+       docker {
+            image 'maven:3.9.5-eclipse-temurin-17'
+            args '--network host -u root -v /var/run/docker.sock:/var/run/docker.sock'
+       }
     }
     stages {
 
