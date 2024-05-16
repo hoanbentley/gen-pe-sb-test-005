@@ -1,34 +1,18 @@
 pipeline {
-    agent {
+   agent {
        docker {
-           image 'maven:3.9.5-eclipse-temurin-17'
+             image 'eclipse-temurin:17.0.9_9-jdk-jammy'
+             args '--network host -u root -v /var/run/docker.sock:/var/run/docker.sock'
+       }
+ }
+ 
+   triggers { pollSCM 'H/2 * * * *' } // poll every 2 mins
+ 
+   stages {
+       stage('Build and Test') {
+           steps {
+               sh 'mvn test'
+           }
        }
    }
-
-    triggers { pollSCM 'H/2 * * * *' }
-
-    environment {
-        TC_CLOUD_TOKEN = credentials('tc-cloud-token-secret-id')
-    }
-
-    stages {
-
-        stage('TCC SetUp') {
-            steps {
-                sh "curl -fsSL https://get.testcontainers.cloud/bash | sh"
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'mvn spring-boot:run'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-    }
 }
